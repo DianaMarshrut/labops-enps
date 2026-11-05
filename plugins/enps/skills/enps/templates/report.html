@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>eNPS — Отчёт</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
+  :root {
+    --bg: #F2F5FA;
+    --card: #FFFFFF;
+    --border: #E1E6EE;
+    --accent: #8B5CF6;
+    --accent-deep: #6D28D9;
+    --accent-tint: #ECE6FB;
+    --accent-soft: #C4B5FD;
+    --text: #131514;
+    --muted: #556265;
+    --green: #059669;
+    --red: #E11D48;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px 16px 48px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .container { max-width: 760px; margin: 0 auto; }
+  header {
+    background: var(--card);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  header h1 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .badge {
+    display: inline-block;
+    background: var(--accent-tint);
+    color: var(--accent-deep);
+    border: 1px solid var(--accent-soft);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 6px;
+    margin-bottom: 8px;
+  }
+  .score-block {
+    background: var(--card);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .score-num {
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 100px;
+  }
+  .score-num.negative { color: var(--red); }
+  .score-meta { flex: 1; }
+  .score-meta h2 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+  .score-breakdown {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .score-pill {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .score-pill.promoters { color: var(--green); }
+  .score-pill.detractors { color: var(--red); }
+  .score-pill.neutrals { color: var(--muted); }
+  section {
+    background: var(--card);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  section h2 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--accent-deep);
+    margin-bottom: 16px;
+  }
+  .theme-item {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .theme-item:last-child { border-bottom: none; }
+  .theme-label { font-weight: 700; margin-bottom: 4px; }
+  .theme-label.positive { color: var(--green); }
+  .theme-label.negative { color: var(--red); }
+  .theme-desc { color: var(--muted); font-size: 13px; }
+  .action-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    align-items: flex-start;
+  }
+  .action-item:last-child { border-bottom: none; }
+  .action-num {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .anon-note {
+    background: var(--accent-tint);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--accent-deep);
+    margin-top: 16px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 24px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div>
+    <span class="badge">eNPS</span>
+    <span class="badge">HR</span>
+  </div>
+  <h1 id="title">Опрос удовлетворённости сотрудников</h1>
+  <div class="meta">
+    Дата: <span id="date">[дата]</span> ·
+    Участников: <span id="count">[N]</span> ·
+    labopsai
+  </div>
+</header>
+
+<div class="score-block">
+  <div class="score-num" id="score-value">[+N]</div>
+  <div class="score-meta">
+    <h2>Индекс eNPS</h2>
+    <div class="meta">% сторонников (9–10) − % критиков (0–6)</div>
+    <div class="score-breakdown">
+      <div class="score-pill promoters">Сторонники: [N] ([X]%)</div>
+      <div class="score-pill neutrals">Нейтральные: [N] ([X]%)</div>
+      <div class="score-pill detractors">Критики: [N] ([X]%)</div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2>Что держит людей</h2>
+  <div id="positives">
+    <div class="theme-item">
+      <div class="theme-label positive">+ [Тема 1]</div>
+      <div class="theme-desc">[Примеры из ответов, без имён]</div>
+    </div>
+    <div class="theme-item">
+      <div class="theme-label positive">+ [Тема 2]</div>
+      <div class="theme-desc">[Примеры из ответов, без имён]</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Что раздражает или мешает</h2>
+  <div id="negatives">
+    <div class="theme-item">
+      <div class="theme-label negative">− [Тема 1]</div>
+      <div class="theme-desc">[Примеры из ответов, без имён]</div>
+    </div>
+    <div class="theme-item">
+      <div class="theme-label negative">− [Тема 2]</div>
+      <div class="theme-desc">[Примеры из ответов, без имён]</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3 действия на ближайший месяц</h2>
+  <div id="actions">
+    <div class="action-item">
+      <div class="action-num">1</div>
+      <div>[Конкретное действие по темам критиков]</div>
+    </div>
+    <div class="action-item">
+      <div class="action-num">2</div>
+      <div>[Конкретное действие]</div>
+    </div>
+    <div class="action-item">
+      <div class="action-num">3</div>
+      <div>[Конкретное действие]</div>
+    </div>
+  </div>
+  <div class="anon-note">
+    Отчёт не содержит имён и деталей, по которым можно узнать автора.
+  </div>
+</section>
+
+<footer>
+  <p>labopsai · <a href="https://labopsai.pro" target="_blank">labopsai.pro</a></p>
+</footer>
+</div>
+</body>
+</html>

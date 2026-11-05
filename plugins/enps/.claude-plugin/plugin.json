@@ -1,0 +1,11 @@
+{
+  "name": "enps",
+  "version": "0.1.0",
+  "description": "eNPS — опрос удовлетворённости сотрудников. Даёт анкету и текст приглашения; руководитель создаёт форму сам. После сбора ответов считает индекс, группирует темы и даёт 3 действия.",
+  "author": {
+    "name": "labopsai"
+  },
+  "homepage": "https://labopsai.pro",
+  "license": "MIT",
+  "keywords": ["hr", "enps", "survey", "satisfaction", "retention", "team"]
+}

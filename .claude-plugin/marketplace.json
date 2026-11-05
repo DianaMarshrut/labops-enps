@@ -1,0 +1,27 @@
+{
+  "name": "labopsai-enps",
+  "owner": {
+    "name": "labopsai"
+  },
+  "metadata": {
+    "description": "Капсула labopsai «eNPS» — опрос удовлетворённости сотрудников: индекс, темы, план действий",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "enps",
+      "source": "./plugins/enps",
+      "description": "eNPS — опрос удовлетворённости сотрудников: индекс, темы недовольства, план действий на месяц",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": [
+        "hr",
+        "enps",
+        "survey",
+        "satisfaction",
+        "retention",
+        "team"
+      ]
+    }
+  ]
+}
